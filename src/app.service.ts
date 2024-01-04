@@ -10,23 +10,6 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async seedDb() {
-    const numTransactions = 10000000;
-    for (let i = 1894591; i <= numTransactions; i++) {
-      const transaction = {
-        TransactionID: i,
-        UserID: faker.string.uuid(),
-        Amount: faker.finance.amount(),
-        Timestamp: faker.date.past().toISOString(),
-      };
-      const insertStatement = `INSERT INTO slick_challenge.transactions (id, User_id, amount, timestamp)
-                               VALUES (${transaction.TransactionID}, '${transaction.UserID}', ${transaction.Amount},
-                                       '${transaction.Timestamp}');  `;
-      await this.dataSource.query(insertStatement);
-    }
-    return true;
-  }
-
   async getAverageTransactionAmount() {
     const insertStatement = `select avg(t.amount) as average_amount from slick_challenge.transactions t;`;
     const averageAmount = (await this.dataSource.query(insertStatement)) as {

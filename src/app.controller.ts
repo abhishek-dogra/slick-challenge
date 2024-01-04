@@ -12,12 +12,6 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/seed')
-  async seed(): Promise<boolean> {
-    const res = await this.appService.seedDb();
-    return true;
-  }
-
   // /avg-trans-amt : Compute the average transaction amount.
   @Get('/avg-trans-amt')
   async averageTransactionAmount(): Promise<{ average: number }> {
